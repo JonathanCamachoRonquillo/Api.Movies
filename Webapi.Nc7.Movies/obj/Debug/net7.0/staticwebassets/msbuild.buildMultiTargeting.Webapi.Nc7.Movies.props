@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Webapi.Nc7.Movies.props" />
+</Project>
