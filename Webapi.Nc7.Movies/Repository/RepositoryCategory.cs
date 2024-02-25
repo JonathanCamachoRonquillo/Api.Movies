@@ -49,7 +49,7 @@ namespace Webapi.Nc7.Movies.Repository
 
         public bool Save()
         {
-            return _db.SaveChanges() >= 0 ? true : false;
+            return _db.SaveChanges() > 0 ? true : false;
         }
 
         public bool UpdateCategory(Category categorU)

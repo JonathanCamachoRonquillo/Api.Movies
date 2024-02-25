@@ -83,5 +83,35 @@ namespace Webapi.Nc7.Movies.Controllers
             return CreatedAtRoute("GetCategory", new { categoriaId = category.Id }, category);
         }
 
+        [HttpPatch("{categoriaId:int}", Name = "UpdatePatchCategory")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult UpdatePatchCategory(int categoriaId,[FromBody] CategoryDto categoryDto) { 
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (categoryDto == null || categoriaId != categoryDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_repCat.ExistCategory(categoriaId))
+            {
+                ModelState.AddModelError("", $"La categoria que intenta actuzalizar no existe");
+                return NotFound(ModelState);
+            }
+
+            var category = _mapper.Map<Category>(categoryDto);
+
+            if (!_repCat.UpdateCategory(category)) {
+                ModelState.AddModelError("",$"Ocurrio un erro al actualizar la categoria con id: {categoriaId}");
+                return StatusCode(500,ModelState);
+            }
+
+            return NoContent();
+        }
     }
 }
