@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Webapi.Nc7.Movies")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c38c4708f61bbbeafd813e2e0059668118a3257e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Webapi.Nc7.Movies")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Webapi.Nc7.Movies")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

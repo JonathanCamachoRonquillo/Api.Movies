@@ -9,8 +9,13 @@ namespace Webapi.Nc7.Movies.Repository.IRepository
         bool CreateMovie(Movie movieC);
         bool UpdateMovie(Movie movieU);
         bool DeleteMovie(Movie movieD);
-        bool ExistMovie(string movieName);
-        bool ExistMovie(int movieId);
+        bool ExistsMovie(string movieName);
+        bool ExistsMovie(int movieId);
+
+        //New methods to search for movies by category and search by name
+        ICollection<Movie> GetMoviesByCategory(int categoryId);
+        ICollection<Movie> GetMoviesByName(string movieName);
+
         bool Save();
     }
 }

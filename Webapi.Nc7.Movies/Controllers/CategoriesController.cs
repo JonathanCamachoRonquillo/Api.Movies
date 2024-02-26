@@ -22,7 +22,7 @@ namespace Webapi.Nc7.Movies.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetCategories()
+        public IActionResult GetCategoriesCtr()
         {
             var lstCategories = _repCat.GetCategories();
             var lstCategoriesDto = new List<CategoryDto>();
@@ -35,10 +35,10 @@ namespace Webapi.Nc7.Movies.Controllers
             return Ok(lstCategoriesDto);
         }
 
-        [HttpGet("{categoriaId:int}", Name = "GetCategory")]
+        [HttpGet("{categoriaId:int}", Name = "GetCategoryCtr")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetCategory(int categoriaId)
+        public IActionResult GetCategoryCtr(int categoriaId)
         {
             var category = _repCat.GetCategoryById(categoriaId);
 
@@ -57,7 +57,7 @@ namespace Webapi.Nc7.Movies.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult CreateNewCategory([FromBody] NewCategoryDto newCategoryDto) {
+        public IActionResult CreateCategoryCtr([FromBody] NewCategoryDto newCategoryDto) {
 
             if (!ModelState.IsValid) {
                 return BadRequest(ModelState);
@@ -67,7 +67,7 @@ namespace Webapi.Nc7.Movies.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (_repCat.ExistCategory(newCategoryDto.Name))
+            if (_repCat.ExistsCategory(newCategoryDto.Name))
             {
                 ModelState.AddModelError("", $"La categoria {newCategoryDto.Name} ya existe");
                 return StatusCode(404, ModelState);
@@ -80,13 +80,13 @@ namespace Webapi.Nc7.Movies.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetCategory", new { categoriaId = category.Id }, category);
+            return CreatedAtRoute("GetCategoryCtr", new { categoriaId = category.Id }, category);
         }
 
-        [HttpPatch("{categoriaId:int}", Name = "UpdatePatchCategory")]
+        [HttpPatch("{categoriaId:int}", Name = "UpdateCategoryCtr")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult UpdatePatchCategory(int categoriaId,[FromBody] CategoryDto categoryDto) { 
+        public IActionResult UpdateCategoryCtr(int categoriaId,[FromBody] CategoryDto categoryDto) { 
             
             if (!ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace Webapi.Nc7.Movies.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_repCat.ExistCategory(categoriaId))
+            if (!_repCat.ExistsCategory(categoriaId))
             {
                 ModelState.AddModelError("", $"La categoria que intenta actuzalizar no existe");
                 return NotFound(ModelState);
@@ -109,6 +109,30 @@ namespace Webapi.Nc7.Movies.Controllers
             if (!_repCat.UpdateCategory(category)) {
                 ModelState.AddModelError("",$"Ocurrio un erro al actualizar la categoria con id: {categoriaId}");
                 return StatusCode(500,ModelState);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{categoriaId:int}", Name = "DeleteCategoryCtr")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteCategoryCtr(int categoriaId)
+        {
+
+            if (!_repCat.ExistsCategory(categoriaId))
+            {
+                return NotFound();
+            }
+
+            var category = _repCat.GetCategoryById(categoriaId);
+
+            if (!_repCat.DeleteCategory(category))
+            {
+                ModelState.AddModelError("", $"Ocurrio un error al eliminar la categoria con id: {categoriaId}");
+                return StatusCode(500, ModelState);
             }
 
             return NoContent();

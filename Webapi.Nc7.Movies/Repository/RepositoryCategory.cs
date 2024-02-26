@@ -31,13 +31,13 @@ namespace Webapi.Nc7.Movies.Repository
             return Save();
         }
 
-        public bool ExistCategory(string categoryName)
+        public bool ExistsCategory(string categoryName)
         {
             bool exist = _db.Category.Any(x => x.Name.ToLower().Trim() == categoryName.ToLower().Trim());
             return exist;
         }
 
-        public bool ExistCategory(int categoryId)
+        public bool ExistsCategory(int categoryId)
         {
             return _db.Category.Any(x => x.Id == categoryId);
         }
@@ -49,7 +49,7 @@ namespace Webapi.Nc7.Movies.Repository
 
         public bool Save()
         {
-            return _db.SaveChanges() > 0 ? true : false;
+            return _db.SaveChanges() >= 0 ? true : false;
         }
 
         public bool UpdateCategory(Category categorU)

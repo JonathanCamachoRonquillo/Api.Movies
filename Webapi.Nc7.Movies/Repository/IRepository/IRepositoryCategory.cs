@@ -9,8 +9,8 @@ namespace Webapi.Nc7.Movies.Repository.IRepository
         bool CreateCategory(Category categoryC);
         bool UpdateCategory(Category categorU);
         bool DeleteCategory(Category categorD);
-        bool ExistCategory(string categoryName);
-        bool ExistCategory(int categoryId);
+        bool ExistsCategory(string categoryName);
+        bool ExistsCategory(int categoryId);
         bool Save();
     }
 }

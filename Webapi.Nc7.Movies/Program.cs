@@ -17,6 +17,7 @@ builder.Services.AddControllers();
 
 // Add repositories
 builder.Services.AddScoped<IRepositoryCategory,RepositoryCategory>();
+builder.Services.AddScoped<IRepositoryMovie,RepositoryMovie>();
 
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(MovieMapper));

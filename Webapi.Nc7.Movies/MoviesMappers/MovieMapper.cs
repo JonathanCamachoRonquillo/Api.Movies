@@ -10,6 +10,7 @@ namespace Webapi.Nc7.Movies.MoviesMappers
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Category,NewCategoryDto>().ReverseMap();
+            CreateMap<Movie, MovieDto>().ReverseMap();
         }
 
     }

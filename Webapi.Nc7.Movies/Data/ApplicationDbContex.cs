@@ -12,6 +12,7 @@ namespace Webapi.Nc7.Movies.Data
 
         //Add models here
         public DbSet<Category> Category { get; set; }
+        public DbSet<Movie> Movie { get; set; }
 
     }
 }
